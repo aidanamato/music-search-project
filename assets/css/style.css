@@ -31,4 +31,18 @@
     color: #8a8a8a;
   }
   /* overlay custom styles end */
+  .heading {
+    margin-top: 10px;
+    max-width: 500px;
+    width: 100%;
+    background-color: rgba(54, 54, 54, 0.8);
+    padding: 20px;
+    color: #fefefe;
+  }
+
+  /*Video styles*/
+  #ytplayer {
+    margin: 0 auto;
+    border: 10px outset #ddd;
+  }
   
