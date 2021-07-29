@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- foundation cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Music Search Project</title>
 </head>
 
 <body>
     <!-- form overlay starts here -->
-    <div class="translucent-form-overlay">
+    <div>
         <form>
             <!-- heading for the form -->
           <h3>Search for Music</h3>
@@ -40,11 +40,76 @@
             Search
           </button>
        </form>
-      </div>
-      <!-- form ends here -->
-            
-      <!-- javascript for foundation -->
+    </div>
+    <!-- form ends here -->
+
+    <!-- begin orbit class -->
+    <div class = "orbit" role = "region" data-orbit data-use-m-u-i = "false">
+        <ul class = "orbit-container">
+           <button class = "orbit-previous" aria-label = "previous"><span class = "show-for-sr">Previous Slide</span>◀</button>
+           <button class = "orbit-next" aria-label = "next"><span class = "show-for-sr">Next Slide</span>▶</button>
+
+           <li class = "is-active orbit-slide">
+              <div>
+                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
+              </div>
+           </li>
+
+           <li class = "orbit-slide">
+              <div>
+                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
+              </div>
+           </li>
+
+           <li class = "orbit-slide">
+              <div>
+                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
+              </div>
+           </li>
+
+           <li class = "orbit-slide">
+              <div>
+                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
+              </div>
+           </li>
+        </ul>
+
+        <nav class = "orbit-bullets">
+           <button class = "is-active" data-slide = "0">
+              <span class = "show-for-sr">First slide</span>
+              <span class = "show-for-sr">Current Slide</span>
+           </button>
+
+           <button data-slide = "1">
+              <span class = "show-for-sr">Second slide</span>
+           </button>
+
+           <button data-slide = "2">
+              <span class = "show-for-sr">Third slide</span>
+           </button>
+
+           <button data-slide = "3">
+              <span class = "show-for-sr">Fourth slide</span>
+           </button>
+        </nav>
+    </div>
+    <!-- end orbit -->
+      
+
+    <!-- javascript for foundation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script>
+        $(document).ready(function() {
+           $(document).foundation();
+        })
+     </script>
 </body>
 
 </html>
