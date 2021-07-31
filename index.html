@@ -43,107 +43,24 @@
    <!-- form ends here -->
 
    <!-- begin orbit class -->
-   <div class = "orbit" role = "region" data-orbit data-use-m-u-i = "false">
-      <ul class = "orbit-container">
-         <button class = "orbit-previous" aria-label = "previous"><span class = "show-for-sr">Previous Slide</span>◀</button>
-         <button class = "orbit-next" aria-label = "next"><span class = "show-for-sr">Next Slide</span>▶</button>
-
-         <li class = "is-active orbit-slide" id="concert-one">
-            <a href="#">
-               <div>
-                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                  <figcaption class="orbit-caption" style="text-align: center;">
-                     <span class="date-one">
-                        March 27th, 2021
-                     </span></br>
-                     <span class="time-one">
-                        7:00PM
-                     </span></br>
-                     <span class="location-one">
-                        Dallas, Tx
-                     </span>
-                  </figcaption>
-               </div>
-            </a>
-         </li>
-
-         <li class = "orbit-slide" id="concert-two">
-            <a href="#">
-               <div>
-                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                  <figcaption class="orbit-caption" style="text-align: center;">
-                     <span class="date-two">
-                        March 28th, 2021
-                     </span></br>
-                     <span class="time-two">
-                        8:00PM
-                     </span></br>
-                     <span class="location-two">
-                        Fort Worth, Tx
-                     </span>
-                  </figcaption>
-               </div>
-            </a>
-         </li>
-
-         <li class = "orbit-slide" id="concert-three">
-            <a href="#">
-               <div>
-                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                  <figcaption class="orbit-caption" style="text-align: center;">
-                     <span class="date-three">
-                        March 29th, 2021
-                     </span></br>
-                     <span class="time-three">
-                        9:00PM
-                     </span></br>
-                     <span class="location-three">
-                        Houston, Tx
-                     </span>
-                  </figcaption>
-               </div>
-            </a>
-         </li>
-
-         <li class = "orbit-slide" id="concert-four">
-            <a href="#">
-               <div>
-                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                  <figcaption class="orbit-caption" style="text-align: center;">
-                     <span class="date-four">
-                        March 30th, 2021
-                     </span></br>
-                     <span class="time-four">
-                        10:00PM
-                     </span></br>
-                     <span class="location-four">
-                        Dallas, Tx
-                     </span>
-                  </figcaption>
-               </div>
-            </a>
-         </li>
-      </ul>
-
-      <nav class = "orbit-bullets">
-         <button class = "is-active" data-slide = "0">
-            <span class = "show-for-sr">First slide</span>
-            <span class = "show-for-sr">Current Slide</span>
-         </button>
-
-         <button data-slide = "1">
-            <span class = "show-for-sr">Second slide</span>
-         </button>
-
-         <button data-slide = "2">
-            <span class = "show-for-sr">Third slide</span>
-         </button>
-
-         <button data-slide = "3">
-            <span class = "show-for-sr">Fourth slide</span>
-         </button>
-      </nav>
-   </div>
+   <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+  <div class="orbit-wrapper">
+    <div class="orbit-controls">
+      <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+      <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+    </div>
+    <ul class="orbit-container"></ul>
+  </div>
+  <nav class="orbit-bullets">
+    <button class="is-active" data-slide="0">
+      <span class="show-for-sr">First slide details.</span>
+      <span class="show-for-sr" data-slide-active-label>Current Slide</span>
+    </button>
+    <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
+    <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
+    <button data-slide="3"><span class="show-for-sr">Fourth slide details.</span></button>
+  </nav>
+</div>
    <!-- end orbit -->
       
    <!-- video player starts here -->
@@ -170,9 +87,10 @@
    </div>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js"></script> -->
    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
-   <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js"></script>
+   <!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js"></script> -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="assets/js/script.js"></script>
 </body>
 

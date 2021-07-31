@@ -11,10 +11,102 @@ var isLyrics = false;
 var isGenre = false;
 
 // variable that will be used to search the api's set when the search button is pressed further down
-var artistName;
+var artistName = localStorage.getItem("artist");
 var songTitle;
 var lyrics;
 var genre;
+
+var getConcertData = function(artistName) {
+    $(".orbit-container").html("");
+
+    $.ajax({
+        type:"GET",
+        url:"https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&size=4&apikey=" + ticketmasterApi,
+        async:true,
+        dataType: "json",
+        success: function(json) {
+            var events = json._embedded.events;
+            console.log(events);
+
+            // iterates through the results for each of the four events returned
+            for (var i = 0; i < events.length; i++) {
+                // sets the events name for each object in the array
+                var eventName = events[i].name;
+
+                // sets the event date and converts it into a moment object for display
+                var date = events[i].dates.start.localDate;
+                var eventDate = moment(date).format("MMMM Do, YYYY")
+
+                // sets the event time and converts it into a moment object for display
+                var time = events[i].dates.start.localTime;
+                var eventTime = moment(time, "HH:mm:ss").format("h:mm A")
+
+                // sets the location for the event
+                var eventLocation = events[i]._embedded.venues[0].name;
+
+                // sets the variable for the event photo
+                var eventPhoto = events[i].images[0].url;
+
+                // sets the url for the event
+                var eventUrl = events[i].url;
+
+                // console.log(eventName);
+                // console.log(eventDate);
+                // console.log(eventTime);
+                // console.log(eventLocation);
+                
+                // creates the list item that holds other data
+                var listEl = $("<li>").attr("data-slide", "class");
+                $(listEl).addClass("orbit-slide");
+
+                // sets the is-active class to the first list item created
+                if (i === 0) {
+                    $(listEl).addClass("is-active");
+                }
+
+                // creates the figure container to hold the image and caption
+                var figureEl = $("<figure>").addClass("orbit-figure");
+
+                // creates the anchor tag to link to ticketmaster
+                var anchorEl = $("<a>").attr("href", eventUrl);
+
+                // holds the events image
+                var imgEl = $("<img>").addClass("orbit-image");
+                $(imgEl).attr("src", eventPhoto);
+
+                // holds the caption for the event
+                var captionEl = $("<figcaption>").addClass("orbit-caption");
+                $(captionEl).html(eventName + "</br><span>" + eventDate + "</span></br><span>" + eventTime + "</span></br><span>" + eventLocation + "</span>");
+
+                // appends the image and caption to the anchor
+                $(anchorEl).append(imgEl);
+                $(anchorEl).append(captionEl);
+
+                // appends the anchor to the figure container
+                $(figureEl).append(anchorEl);
+
+                // appends the figure container to the list item
+                $(listEl).append(figureEl);
+
+                // appends the list item to the orbit container
+                $(".orbit-container").append(listEl);
+                
+                // reinitializes the orbit instance to update it
+                Foundation.reInit($(".orbit"));
+            }
+        },
+        error: function(xhr, status, err) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(err);
+                }
+        });
+};
+
+getConcertData(artistName);
+
+// jQuery for the ticketmaster Orbit
+$(document).foundation();
 
 // logic for the search form
 $("#search").on("click", function() {
@@ -58,24 +150,27 @@ $("#search").on("click", function() {
     // logic for setting the variables that will be used for api's and further functionality
     if (isArtist) {
         artistName = keyword;
+        localStorage.setItem("artist", artistName);
     } else if (isSong) {
         songTitle = keyword;
+        localStorage.setItem("song", songTitle);
     } else if (isLyrics) {
         lyrics = keyword;
+        localStorage.setItem("lyrics", lyrics);
     } else if (isGenre) {
         genre = keyword;
+        localStorage.setItem("genre", genre);
     }
 
     // console.log(artistName + " is the artist.");
     // console.log(songTitle + " is the title.");
     // console.log(lyrics + " are the lyrics.");
     // console.log(genre + " is the genre.")
+
+    getConcertData(artistName);
 });
 
-// jQuery for the ticketmaster Orbit
-$(document).ready(function() {
-    $(document).foundation();
- })
+
 
 //  logic for youtube api
 // Load the IFrame Player API code asynchronously.
