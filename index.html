@@ -2,98 +2,146 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Music Search Project</title>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+   <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
+   <link rel="stylesheet" href="assets/css/style.css">
+   <title>Music Search Project</title>
 </head>
 
 <body>
-    <!-- form overlay starts here -->
-    <div>
-        <form id="search-form">
-            <!-- heading for the form -->
-          <h3>Search for Music</h3>
-          <!-- place to input the value that will be used for the search -->
-          <div class="row columns">
-            <label>Keyword
-              <input type="text" name="keyword" placeholder="Any">
-            </label>
-          </div>
-          <!-- different options to use for the search -->
-          <div class="row columns">
+   <!-- form overlay starts here -->
+   <div>
+      <form id="search-form">
+         <!-- heading for the form -->
+         <h3>Search for Music</h3>
+         <!-- place to input the value that will be used for the search -->
+         <div class="row columns">
+         <label>Keyword
+            <input type="text" name="keyword" placeholder="Any">
+         </label>
+         </div>
+         <!-- different options to use for the search -->
+         <div class="row columns">
             <label>Search By
-              <select name="status" type="text" id="select">
-                <option value="artist">Artist</option>
-                <option value="song">Song</option>
-                <option value="lyrics">Lyrics</option>
-                <option value="genre">Genre</option>
-              </select>
+               <select name="status" type="text" id="select">
+                  <option value="artist">Artist</option>
+                  <option value="song">Song</option>
+                  <option value="lyrics">Lyrics</option>
+                  <option value="genre">Genre</option>
+               </select>
             </label>
-          </div>
-          <!-- search button -->
-          <button type="button" class="primary button expanded search-button" id="search">
+         </div>
+         <!-- search button -->
+         <button type="button" class="primary button expanded search-button" id="search">
             Search
-          </button>
-       </form>
-    </div>
-    <!-- form ends here -->
+         </button>
+      </form>
+   </div>
+   <!-- form ends here -->
 
-    <!-- begin orbit class -->
-    <div class = "orbit" role = "region" data-orbit data-use-m-u-i = "false">
-        <ul class = "orbit-container">
-           <button class = "orbit-previous" aria-label = "previous"><span class = "show-for-sr">Previous Slide</span>◀</button>
-           <button class = "orbit-next" aria-label = "next"><span class = "show-for-sr">Next Slide</span>▶</button>
+   <!-- begin orbit class -->
+   <div class = "orbit" role = "region" data-orbit data-use-m-u-i = "false">
+      <ul class = "orbit-container">
+         <button class = "orbit-previous" aria-label = "previous"><span class = "show-for-sr">Previous Slide</span>◀</button>
+         <button class = "orbit-next" aria-label = "next"><span class = "show-for-sr">Next Slide</span>▶</button>
 
-           <li class = "is-active orbit-slide">
-              <div>
-                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
-              </div>
-           </li>
+         <li class = "is-active orbit-slide" id="concert-one">
+            <a href="#">
+               <div>
+                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                  <figcaption class="orbit-caption" style="text-align: center;">
+                     <span class="date-one">
+                        March 27th, 2021
+                     </span></br>
+                     <span class="time-one">
+                        7:00PM
+                     </span></br>
+                     <span class="location-one">
+                        Dallas, Tx
+                     </span>
+                  </figcaption>
+               </div>
+            </a>
+         </li>
 
-           <li class = "orbit-slide">
-              <div>
-                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
-              </div>
-           </li>
+         <li class = "orbit-slide" id="concert-two">
+            <a href="#">
+               <div>
+                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                  <figcaption class="orbit-caption" style="text-align: center;">
+                     <span class="date-two">
+                        March 28th, 2021
+                     </span></br>
+                     <span class="time-two">
+                        8:00PM
+                     </span></br>
+                     <span class="location-two">
+                        Fort Worth, Tx
+                     </span>
+                  </figcaption>
+               </div>
+            </a>
+         </li>
 
-           <li class = "orbit-slide">
-              <div>
-                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
-              </div>
-           </li>
+         <li class = "orbit-slide" id="concert-three">
+            <a href="#">
+               <div>
+                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                  <figcaption class="orbit-caption" style="text-align: center;">
+                     <span class="date-three">
+                        March 29th, 2021
+                     </span></br>
+                     <span class="time-three">
+                        9:00PM
+                     </span></br>
+                     <span class="location-three">
+                        Houston, Tx
+                     </span>
+                  </figcaption>
+               </div>
+            </a>
+         </li>
 
-           <li class = "orbit-slide">
-              <div>
-                <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
-                <figcaption class="orbit-caption" style="text-align: center;">March 27th, 2021</br>7:00PM</br>Dallas, Tx</figcaption>
-              </div>
-           </li>
-        </ul>
+         <li class = "orbit-slide" id="concert-four">
+            <a href="#">
+               <div>
+                  <img class="orbit-image" src="https://plchldr.co/i/1070x250" alt="plchldr.co">
+                  <figcaption class="orbit-caption" style="text-align: center;">
+                     <span class="date-four">
+                        March 30th, 2021
+                     </span></br>
+                     <span class="time-four">
+                        10:00PM
+                     </span></br>
+                     <span class="location-four">
+                        Dallas, Tx
+                     </span>
+                  </figcaption>
+               </div>
+            </a>
+         </li>
+      </ul>
 
         <nav class = "orbit-bullets">
-           <button class = "is-active" data-slide = "0">
-              <span class = "show-for-sr">First slide</span>
-              <span class = "show-for-sr">Current Slide</span>
-           </button>
+            <button class = "is-active" data-slide = "0">
+               <span class = "show-for-sr">First slide</span>
+               <span class = "show-for-sr">Current Slide</span>
+            </button>
 
-           <button data-slide = "1">
-              <span class = "show-for-sr">Second slide</span>
-           </button>
+            <button data-slide = "1">
+               <span class = "show-for-sr">Second slide</span>
+            </button>
 
-           <button data-slide = "2">
-              <span class = "show-for-sr">Third slide</span>
-           </button>
+            <button data-slide = "2">
+               <span class = "show-for-sr">Third slide</span>
+            </button>
 
-           <button data-slide = "3">
-              <span class = "show-for-sr">Fourth slide</span>
-           </button>
+            <button data-slide = "3">
+               <span class = "show-for-sr">Fourth slide</span>
+            </button>
         </nav>
     </div>
     <!-- end orbit -->
