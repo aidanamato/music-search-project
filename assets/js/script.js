@@ -26,7 +26,7 @@ var getConcertData = function(artistName) {
         dataType: "json",
         success: function(json) {
             var events = json._embedded.events;
-            console.log(events);
+            // console.log(events);
 
             // iterates through the results for each of the four events returned
             for (var i = 0; i < events.length; i++) {
