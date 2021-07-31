@@ -14,7 +14,7 @@
 <body>
     <!-- form overlay starts here -->
     <div>
-        <form>
+        <form id="search-form">
             <!-- heading for the form -->
           <h3>Search for Music</h3>
           <!-- place to input the value that will be used for the search -->
@@ -26,8 +26,7 @@
           <!-- different options to use for the search -->
           <div class="row columns">
             <label>Search By
-              <select name="status" type="text">
-                <option>Any</option>
+              <select name="status" type="text" id="select">
                 <option value="artist">Artist</option>
                 <option value="song">Song</option>
                 <option value="lyrics">Lyrics</option>
@@ -36,7 +35,7 @@
             </label>
           </div>
           <!-- search button -->
-          <button type="button" class="primary button expanded search-button">
+          <button type="button" class="primary button expanded search-button" id="search">
             Search
           </button>
        </form>
@@ -102,58 +101,33 @@
 
       
     <!-- video player starts here -->
-      <h2 class="heading">Video</h2>
-      <div id="ytplayer">
-      <script>
-          // Load the IFrame Player API code asynchronously.
-          var tag = document.createElement('script');
-          tag.src = "https://www.youtube.com/player_api";
-          var firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
-          // Replace the 'ytplayer' element with an <iframe> and
-          // YouTube player after the API code downloads.
-          var player;
-          function onYouTubePlayerAPIReady() {
-            player = new YT.Player('ytplayer', {
-              height: '360',
-              width: '640',
-              videoId: '93uEGbM4gt4'
-            });
-          }
-        </script>
-      </div>
+    <h2 class="heading">Video</h2>
+    <div id="ytplayer"></div>
 
-  <!-- TastDive's API Incorporation -->
-  <div class="callout">
-    <h5>Foo Fighters</h5>
-    <p>Music</p>
-    <a href="#">Hyperlink linking you somewhere.</a>
-  </div>
+    <!-- TastDive's API Incorporation -->
+    <div class="callout">
+        <h5>Foo Fighters</h5>
+        <p>Music</p>
+        <a href="#">Hyperlink linking you somewhere.</a>
+    </div>
 
-  <div class="callout">
-    <h5>Green Day</h5>
-    <p>Music</p>
-    <a href="#">Hyperlink linking you somewhere.</a>
-  </div>
+    <div class="callout">
+        <h5>Green Day</h5>
+        <p>Music</p>
+        <a href="#">Hyperlink linking you somewhere.</a>
+    </div>
 
-  <div class="callout">
-    <h5>Metallica</h5>
-    <p>Music</p>
-    <a href="#">Hyperlink linking you somewhere.</a>
-  </div>
+    <div class="callout">
+        <h5>Metallica</h5>
+        <p>Music</p>
+        <a href="#">Hyperlink linking you somewhere.</a>
+    </div>
 
-      <!-- javascript for foundation -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
-      <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js"></script>
-      <script src="assets/javascript/script.js"></script>
-      <script>
-          $(document).ready(function() {
-             $(document).foundation();
-          })
-       </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
