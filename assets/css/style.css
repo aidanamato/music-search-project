@@ -1,56 +1,8 @@
-<<<<<<< HEAD
+.orbit-container {
+  image-rendering: auto;
+}
 
+.orbit-caption {
+  text-align: center;
+}
 
-
-
-
-=======
-/* overlay custom styles start */
-.translucent-form-overlay {
-    max-width: 500px;
-    width: 100%;
-    background-color: rgba(54, 54, 54, 0.8);
-    padding: 20px;
-    color: #fefefe;
-  }
-  
-  .translucent-form-overlay .columns.row {
-    display: block;
-  }
-  
-  .translucent-form-overlay h3, .translucent-form-overlay label {
-    color: #fefefe;
-  }
-  
-  .translucent-form-overlay input, .translucent-form-overlay select {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input::-webkit-input-placeholder {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input:-ms-input-placeholder {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input::placeholder {
-    color: #8a8a8a;
-  }
-  /* overlay custom styles end */
-  .heading {
-    margin-top: 10px;
-    max-width: 500px;
-    width: 100%;
-    background-color: rgba(54, 54, 54, 0.8);
-    padding: 20px;
-    color: #fefefe;
-  }
-
-  /*Video styles*/
-  #ytplayer {
-    margin: 0 auto;
-    border: 10px outset #ddd;
-  }
->>>>>>> develop
-  
