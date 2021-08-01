@@ -13,33 +13,31 @@
 
 <body>
    <!-- form overlay starts here -->
-   <div>
-      <form id="search-form">
-         <!-- heading for the form -->
-         <h3>Search for Music</h3>
-         <!-- place to input the value that will be used for the search -->
-         <div class="row columns">
-         <label>Keyword
-            <input type="text" name="keyword" placeholder="Any">
-         </label>
-         </div>
-         <!-- different options to use for the search -->
-         <div class="row columns">
-            <label>Search By
-               <select name="status" type="text" id="select">
-                  <option value="artist">Artist</option>
-                  <option value="song">Song</option>
-                  <option value="lyrics">Lyrics</option>
-                  <option value="genre">Genre</option>
-               </select>
-            </label>
-         </div>
-         <!-- search button -->
-         <button type="button" class="primary button expanded search-button" id="search">
-            Search
-         </button>
+    <div class="form-container grid-container">
+      <form id="search-form" class="grid-x">
+        <!-- heading for the form -->
+        <h1 class="cell text-center">Search for Music</h1>
+        <!-- place to input the value that will be used for the search -->
+        <div class="cell">
+        <label for="keyword">Keyword</label>
+        <input type="text" name="keyword" placeholder="Any">
+        </div>
+        <!-- different options to use for the search -->
+        <div class="cell">
+          <label for="status">Search By</label>
+          <select name="status" type="text" id="select">
+            <option value="song" selected>Song</option>
+            <option value="artist">Artist</option>
+            <option value="lyrics">Lyrics</option>
+            <option value="genre">Genre</option>
+          </select>
+        </div>
+        <!-- search button -->
+        <button type="button" class="primary button expanded search-button" id="search">
+          Search
+        </button>
       </form>
-   </div>
+    </div> 
    <!-- form ends here -->
 
    <!-- begin orbit class -->
@@ -68,10 +66,12 @@
       </nav>
    </div>
    <!-- end orbit -->
-      
+    
    <!-- video player starts here -->
+   <!-- 
    <h2 class="heading">Video</h2>
    <div id="ytplayer"></div>
+   -->
 
    <!-- TastDive's API Incorporation -->
    <div class="callout">
