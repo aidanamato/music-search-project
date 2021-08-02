@@ -1,6 +1,6 @@
 // variables to hold the api keys 
-var ticketmasterApi;
-var googleApi;
+var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
+var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
 var lastFmApi;
 var tasteDiveApi;
 
@@ -69,6 +69,7 @@ var getConcertData = function(artistName) {
 
                 // creates the anchor tag to link to ticketmaster
                 var anchorEl = $("<a>").attr("href", eventUrl);
+                $(anchorEl).attr("target", "_blank");
 
                 // holds the events image
                 var imgEl = $("<img>").addClass("orbit-image");
@@ -171,6 +172,14 @@ $("#search").on("click", function() {
 });
 
 
+var getYoutubeId = function(artistName) {
+    fetch("https://www.googleapis.com/youtube/v3/search?q=" + artistName + "&videoEmbeddable=true&type=video&key=" + googleApi)
+        .then(function(response) {
+            response.json().then(function(data) {
+                console.log(data);
+            })
+        })
+}
 
 //  logic for youtube api
 // Load the IFrame Player API code asynchronously.
@@ -186,6 +195,8 @@ function onYouTubePlayerAPIReady() {
     player = new YT.Player('ytplayer', {
         height: '360',
         width: '640',
-        videoId: '93uEGbM4gt4'
+        videoId: 'NUTGr5t3MoY'
     });
 }
+
+getYoutubeId(artistName);
