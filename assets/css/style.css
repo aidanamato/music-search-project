@@ -16,14 +16,13 @@ body {
 
 .video-container {
   display: flex;
-  justify-content: center;
 }
 
-.video-container iframe {
-  width: 100%;
-}
 
-@media screen and (min-width: 639px) {
-  
+
+@media screen and (max-width: 639px) {
+  .video-container iframe {
+    width: 100%;
+  }
 }
 
