@@ -1,8 +1,28 @@
+body {
+  padding: 0 8px;
+}
+
+.form-container {
+  padding-top: 12px;
+}
+
 .orbit-container {
   image-rendering: auto;
 }
 
 .orbit-caption {
   text-align: center;
+}
+
+.video-container {
+  display: flex;
+}
+
+
+
+@media screen and (max-width: 639px) {
+  .video-container iframe {
+    width: 100%;
+  }
 }
 

@@ -13,34 +13,50 @@
 
 <body>
    <!-- form overlay starts here -->
-   <div>
-      <form id="search-form">
-         <!-- heading for the form -->
-         <h3>Search for Music</h3>
-         <!-- place to input the value that will be used for the search -->
-         <div class="row columns">
-         <label>Keyword
-            <input type="text" name="keyword" placeholder="Any">
-         </label>
-         </div>
-         <!-- different options to use for the search -->
-         <div class="row columns">
-            <label>Search By
-               <select name="status" type="text" id="select">
-                  <option value="artist">Artist</option>
-                  <option value="song">Song</option>
-                  <option value="lyrics">Lyrics</option>
-                  <option value="genre">Genre</option>
-               </select>
-            </label>
-         </div>
-         <!-- search button -->
-         <button type="button" class="primary button expanded search-button" id="search">
-            Search
-         </button>
+    <div class="form-container grid-container">
+      <form id="search-form" class="grid-x">
+        <!-- heading for the form -->
+        <h1 class="cell text-center">Search for Music</h1>
+        <!-- place to input the value that will be used for the search -->
+        <div class="cell">
+        <label for="keyword">Keyword</label>
+        <input type="text" name="keyword" placeholder="Any">
+        </div>
+        <!-- different options to use for the search -->
+        <div class="cell">
+          <label for="status">Search By</label>
+          <select name="status" type="text" id="select">
+            <option value="song" selected>Song</option>
+            <option value="artist">Artist</option>
+            <option value="lyrics">Lyrics</option>
+            <option value="genre">Genre</option>
+          </select>
+        </div>
+        <!-- search button -->
+        <button type="button" class="primary button expanded search-button" id="search">
+          Search
+        </button>
       </form>
-   </div>
+    </div> 
    <!-- form ends here -->
+
+   <!-- form response start-->
+   <div class="album-response">
+      <h2 class="title">
+         Believe
+      </h2>
+      <img src="https://lastfm.freetls.fastly.net/i/u/64s/3b54885952161aaea4ce2965b2db1638.png" alt="The album art for the album."/>
+      <h3>Tracks</h3>
+      <ul>
+         <li>Believe</li>
+         <li>The Power</li>
+         <li>Runaway</li>
+         <li>All for Nothing</li>
+         <li></li>
+
+      </ul>
+   </div>
+   <!-- form response end -->
 
    <!-- begin orbit class -->
    <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
@@ -68,12 +84,15 @@
       </nav>
    </div>
    <!-- end orbit -->
-      
+    
    <!-- video player starts here -->
-   <h2 class="heading">Video</h2>
-   <div id="ytplayer"></div>
+   <h2 class="h2">Video</h2>
+   <div class="video-container">
+    <div id="ytplayer"></div>
+   </div>  
+    
 
-   <!-- TastDive's API Incorporation -->
+   <!-- TasteDive's API Incorporation -->
    <div class="callout">
       <h5>Foo Fighters</h5>
       <p>Music</p>
