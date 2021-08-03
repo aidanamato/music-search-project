@@ -139,7 +139,7 @@ $("#search").on("click", function() {
     // console.log("isSong = " + isSong);
     // console.log("isAlbum = " + isAlbum);
 
-    // IMPORTANT ALL DATA SHOULD BE DISPLAYED THROUGH THIS FUNCTION UNDERNEATH THE CORRESPONDING FETCH REQUEST
+    // IMPORTANT: ALL DATA SHOULD BE DISPLAYED THROUGH THIS FUNCTION UNDERNEATH THE CORRESPONDING FETCH REQUEST
     // the user searches for an artist it will dynamically display the concert data
     if (isArtist) {
         artistName = keyword;
