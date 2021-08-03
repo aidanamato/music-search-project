@@ -1,120 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-   <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
-   <link rel="stylesheet" href="assets/css/style.css">
-   <title>Music Search Project</title>
-</head>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+      <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
+      <link rel="stylesheet" href="assets/css/style.css">
+      <title>Music Search Project</title>
+   </head>
 
-<body>
-   <!-- form overlay starts here -->
-    <div class="form-container grid-container">
-      <form id="search-form" class="grid-x">
-        <!-- heading for the form -->
-        <h1 class="cell text-center">Search for Music</h1>
-        <!-- place to input the value that will be used for the search -->
-        <div class="cell">
-        <label for="keyword">Keyword</label>
-        <input type="text" name="keyword" placeholder="Any">
-        </div>
-        <!-- different options to use for the search -->
-        <div class="cell">
-          <label for="status">Search By</label>
-          <select name="status" type="text" id="select">
-            <option value="song" selected>Song</option>
-            <option value="artist">Artist</option>
-            <option value="lyrics">Lyrics</option>
-            <option value="genre">Genre</option>
-          </select>
-        </div>
-        <!-- search button -->
-        <button type="button" class="primary button expanded search-button" id="search">
-          Search
-        </button>
-      </form>
-    </div> 
-   <!-- form ends here -->
+   <body>
 
-   <!-- form response start-->
-   <div class="album-response">
-      <h2 class="title">
-         Believe
-      </h2>
-      <img src="https://lastfm.freetls.fastly.net/i/u/64s/3b54885952161aaea4ce2965b2db1638.png" alt="The album art for the album."/>
-      <h3>Tracks</h3>
-      <ul>
-         <li>Believe</li>
-         <li>The Power</li>
-         <li>Runaway</li>
-         <li>All for Nothing</li>
-         <li></li>
-
-      </ul>
-   </div>
-   <!-- form response end -->
-
-   <!-- begin orbit class -->
-   <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
-      <div class="orbit-wrapper">
-         <div class="orbit-controls">
-            <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
-            <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+      <!-- form overlay starts here -->
+      <section id="search-form" class="search-form">
+         <div class="form-container grid-container">
+         <form class="grid-x">
+            <!-- heading for the form -->
+            <h1 class="cell text-center">Search for Music</h1>
+            <!-- place to input the value that will be used for the search -->
+            <div class="cell">
+            <label for="keyword">Keyword</label>
+            <input type="text" name="keyword" placeholder="Any">
+            </div>
+            <!-- different options to use for the search -->
+            <div class="cell">
+               <label for="status">Search By</label>
+               <select name="status" type="text" id="select">
+                  <option value="artist" selected>Artist</option>
+                  <option value="song">Song</option>
+                  <option value="album">Album</option>
+                  <option value="lyrics">Lyrics</option>
+                  <option value="genre">Genre</option>
+               </select>
+            </div>
+            <!-- search button -->
+            <button type="button" class="primary button expanded search-button" id="search">
+               Search
+            </button>
+            </form>
          </div>
-         <ul class="orbit-container"></ul>
-      </div>
-      <nav class="orbit-bullets">
-         <button class="is-active" data-slide="0">
-            <span class="show-for-sr">First slide details.</span>
-            <span class="show-for-sr" data-slide-active-label>Current Slide</span>
-         </button>
-         <button data-slide="1">
-            <span class="show-for-sr">Second slide details.</span>
-         </button>
-         <button data-slide="2">
-            <span class="show-for-sr">Third slide details.</span>
-         </button>
-         <button data-slide="3">
-            <span class="show-for-sr">Fourth slide details.</span>
-         </button>
-      </nav>
-   </div>
-   <!-- end orbit -->
-    
-   <!-- video player starts here -->
-   <h2 class="h2">Video</h2>
-   <div class="video-container">
-    <div id="ytplayer"></div>
-   </div>  
-    
+      </section> 
+      <!-- form ends here -->
+      
+      <!-- form response start -->
+      <section id="form-response" class="form-response">
+         <!-- artist search -->
+         <!--
+         <div class="search-response grid-x">
+            <div class="response-top cell">
+               <div class="grid-x">
+                  <div class="title-container cell small-7">
+                     <h2 class="response-title">Cher</h2>
+                  </div>
+                  <div class="cell small-5">
+                     <img class="album-img" src="https://lastfm.freetls.fastly.net/i/u/300x300/3b54885952161aaea4ce2965b2db1638.png" alt="The album art for the album."/>
+                  </div>
+               </div>
+            </div>
+            <div class="cell">
+               <h3>Top Tracks</h3>
+               <ol class="track-list">
+                  <li>Believe</li>
+                  <li>The Power</li>
+                  <li>Runaway</li>
+                  <li>All for Nothing</li>
+                  <li>Strong Enough</li>
+               </ol>
+            </div>
+         </div>
+         <!--
 
-   <!-- TasteDive's API Incorporation -->
-   <div class="callout">
-      <h5>Foo Fighters</h5>
-      <p>Music</p>
-      <a href="#">Hyperlink linking you somewhere.</a>
-   </div>
+         <!-- song search -->
+         <!--
+         <div class="search-response grid-x">
+            <div class="title-container song-container cell small-7">
+               <h2 class="response-title">Believe</h2>
+               <h3 class="response-subtitle">Cher</h3>
+               <h3 class="album-name">Believe</h3>
+            </div>
+            <div class="cell small-5">
+               <img class="album-img" src="https://lastfm.freetls.fastly.net/i/u/300x300/3b54885952161aaea4ce2965b2db1638.png" alt="The album art for the album."/>
+            </div>
+         </div>
+         -->
+         
+         <!-- album search -->
+         <!--
+         <div class="search-response grid-x">
+            <div class="response-top cell">
+               <div class="grid-x">
+                  <div class="title-container cell small-7">
+                     <h2 class="response-title">Believe</h2>
+                     <h3 class="response-subtitle">Cher</h3>
+                  </div>
+                  <div class="cell small-5">
+                     <img class="album-img" src="https://lastfm.freetls.fastly.net/i/u/300x300/3b54885952161aaea4ce2965b2db1638.png" alt="The album art for the album."/>
+                  </div>
+               </div>
+            </div>
+            <ol class="track-list cell">
+               <li>Believe</li>
+               <li>The Power</li>
+               <li>Runaway</li>
+               <li>All for Nothing</li>
+               <li>Strong Enough</li>
+               <li>Dov'e L'amore</li>
+            </ol>
+         </div>
+         -->
 
-   <div class="callout">
-      <h5>Green Day</h5>
-      <p>Music</p>
-      <a href="#">Hyperlink linking you somewhere.</a>
-   </div>
+         <!-- Genre Search -->
+         <div class="search-response grid-x">
+            <div class="response-top cell">
+               <div class="grid-x">
+                  <div class="title-container genre-container cell">
+                     <h2 class="response-title">Pop</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="cell">
+               <h3 class="list-title">Top Tracks</h3>
+               <ol class="track-list">
+                  <li>Believe</li>
+                  <li>The Power</li>
+                  <li>Runaway</li>
+                  <li>All for Nothing</li>
+                  <li>Strong Enough</li>
+                  <li>Dov'e L'amore</li>
+               </ol>
+            </div>
+         </div>
+         <!-- form response end -->
 
-   <div class="callout">
-      <h5>Metallica</h5>
-      <p>Music</p>
-      <a href="#">Hyperlink linking you somewhere.</a>
-   </div>
+         <!-- video player starts here -->
+         <div class="video-container">
+            <h2 id="song-title">Song Title</h2>
+            <div class="video-player-container">
+               <div id="ytplayer"></div>
+            </div>  
+         </div> 
+      </section>
+      
+      <section id="event-carousel" class="event-carousel">
+         <!-- begin orbit class -->
+         <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+            <div class="orbit-wrapper">
+               <div class="orbit-controls">
+                  <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+                  <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+               </div>
+               <ul class="orbit-container"></ul>
+            </div>
+            <nav class="orbit-bullets">
+               <button class="is-active" data-slide="0">
+                  <span class="show-for-sr">First slide details.</span>
+                  <span class="show-for-sr" data-slide-active-label>Current Slide</span>
+               </button>
+               <button data-slide="1">
+                  <span class="show-for-sr">Second slide details.</span>
+               </button>
+               <button data-slide="2">
+                  <span class="show-for-sr">Third slide details.</span>
+               </button>
+               <button data-slide="3">
+                  <span class="show-for-sr">Fourth slide details.</span>
+               </button>
+            </nav>
+         </div>
+         <!-- end orbit -->
+      </section>
+      
+      <section id="tastedive" class="tastedive">
+         <!-- TasteDive's API Incorporation -->
+         <div class="callout">
+            <h5>Foo Fighters</h5>
+            <p>Music</p>
+            <a href="#">Hyperlink linking you somewhere.</a>
+         </div>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script src="assets/js/script.js"></script>
-</body>
+         <div class="callout">
+            <h5>Green Day</h5>
+            <p>Music</p>
+            <a href="#">Hyperlink linking you somewhere.</a>
+         </div>
+
+         <div class="callout">
+            <h5>Metallica</h5>
+            <p>Music</p>
+            <a href="#">Hyperlink linking you somewhere.</a>
+         </div>
+      </section>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="assets/js/script.js"></script>
+   </body>
 
 </html>
