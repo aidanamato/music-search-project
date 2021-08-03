@@ -189,4 +189,4 @@ var getYoutubeId = function(artistName) {
         })
 }
 
-getYoutubeId(artistName);
+// getYoutubeId(artistName);
