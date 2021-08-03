@@ -1,20 +1,11 @@
-// variables to hold the api keys 
+// IMPORTANT: SET THE CORRESPONDING API KEY HERE AS A STRING TO USE THE APPLICATION
 var ticketmasterApi;
 var googleApi;
 var lastFmApi;
 var tasteDiveApi;
 
-// booleans for each option
-var isArtist = false;
-var isSong = false;
-var isLyrics = false;
-var isGenre = false;
-
 // variable that will be used to search the api's set when the search button is pressed further down
 var artistName = localStorage.getItem("artist");
-var songTitle;
-var lyrics;
-var genre;
 
 var getConcertData = function(artistName) {
     $(".orbit-container").html("");
@@ -25,84 +16,96 @@ var getConcertData = function(artistName) {
         async:true,
         dataType: "json",
         success: function(json) {
-            var events = json._embedded.events;
-            // console.log(events);
+            // checks to see if there are any events and if not displays that there are no events for the listed artist
+            if (json.page.totalElements > 0) {
+                var events = json._embedded.events;
+                // console.log(events);
 
-            // iterates through the results for each of the four events returned
-            for (var i = 0; i < events.length; i++) {
-                // sets the events name for each object in the array
-                var eventName = events[i].name;
+                // iterates through the results for each of the four events returned
+                for (var i = 0; i < events.length; i++) {
+                    // sets the events name for each object in the array
+                    var eventName = events[i].name;
 
-                // sets the event date and converts it into a moment object for display
-                var date = events[i].dates.start.localDate;
-                var eventDate = moment(date).format("MMMM Do, YYYY")
+                    // sets the event date and converts it into a moment object for display
+                    var date = events[i].dates.start.localDate;
+                    var eventDate = moment(date).format("MMMM Do, YYYY")
 
-                // sets the event time and converts it into a moment object for display
-                var time = events[i].dates.start.localTime;
-                var eventTime = moment(time, "HH:mm:ss").format("h:mm A")
+                    // sets the event time and converts it into a moment object for display
+                    var time = events[i].dates.start.localTime;
+                    var eventTime = moment(time, "HH:mm:ss").format("h:mm A")
 
-                // sets the location for the event
-                var eventLocation = events[i]._embedded.venues[0].name;
+                    // sets the location for the event
+                    var eventLocation = events[i]._embedded.venues[0].name;
 
-                // sets the variable for the event photo
-                var eventPhoto = events[i].images[0].url;
+                    // sets the variable for the event photo
+                    var eventPhoto = events[i].images[0].url;
 
-                // sets the url for the event
-                var eventUrl = events[i].url;
+                    // sets the url for the event
+                    var eventUrl = events[i].url;
 
-                // console.log(eventName);
-                // console.log(eventDate);
-                // console.log(eventTime);
-                // console.log(eventLocation);
-                
-                // creates the list item that holds other data
-                var listEl = $("<li>").attr("data-slide", "class");
-                $(listEl).addClass("orbit-slide");
+                    // console.log(eventName);
+                    // console.log(eventDate);
+                    // console.log(eventTime);
+                    // console.log(eventLocation);
+                    
+                    // creates the list item that holds other data
+                    var listEl = $("<li>").attr("data-slide", "class");
+                    $(listEl).addClass("orbit-slide");
 
-                // sets the is-active class to the first list item created
-                if (i === 0) {
-                    $(listEl).addClass("is-active");
+                    // sets the is-active class to the first list item created
+                    if (i === 0) {
+                        $(listEl).addClass("is-active");
+                    }
+
+                    // creates the figure container to hold the image and caption
+                    var figureEl = $("<figure>").addClass("orbit-figure");
+
+                    // creates the anchor tag to link to ticketmaster
+                    var anchorEl = $("<a>").attr("href", eventUrl);
+                    $(anchorEl).attr("target", "_blank");
+
+                    // holds the events image
+                    var imgEl = $("<img>").addClass("orbit-image");
+                    $(imgEl).attr("src", eventPhoto);
+
+                    // holds the caption for the event
+                    var captionEl = $("<figcaption>").addClass("orbit-caption");
+                    $(captionEl).html(eventName + "</br><span>" + eventDate + "</span></br><span>" + eventTime + "</span></br><span>" + eventLocation + "</span>");
+
+                    // appends the image and caption to the anchor
+                    $(anchorEl).append(imgEl);
+                    $(anchorEl).append(captionEl);
+
+                    // appends the anchor to the figure container
+                    $(figureEl).append(anchorEl);
+
+                    // appends the figure container to the list item
+                    $(listEl).append(figureEl);
+
+                    // appends the list item to the orbit container
+                    $(".orbit-container").append(listEl);
+                    
+                    // reinitializes the orbit instance to update it
+                    Foundation.reInit($(".orbit"));
                 }
-
-                // creates the figure container to hold the image and caption
-                var figureEl = $("<figure>").addClass("orbit-figure");
-
-                // creates the anchor tag to link to ticketmaster
-                var anchorEl = $("<a>").attr("href", eventUrl);
-
-                // holds the events image
-                var imgEl = $("<img>").addClass("orbit-image");
-                $(imgEl).attr("src", eventPhoto);
-
-                // holds the caption for the event
-                var captionEl = $("<figcaption>").addClass("orbit-caption");
-                $(captionEl).html(eventName + "</br><span>" + eventDate + "</span></br><span>" + eventTime + "</span></br><span>" + eventLocation + "</span>");
-
-                // appends the image and caption to the anchor
-                $(anchorEl).append(imgEl);
-                $(anchorEl).append(captionEl);
-
-                // appends the anchor to the figure container
-                $(figureEl).append(anchorEl);
-
-                // appends the figure container to the list item
-                $(listEl).append(figureEl);
-
-                // appends the list item to the orbit container
-                $(".orbit-container").append(listEl);
-                
-                // reinitializes the orbit instance to update it
-                Foundation.reInit($(".orbit"));
+            } else {
+                console.log("no events");
+                $(".orbit").html("<h1>There are no events for that Artist<h1>")
             }
+                         
+
+            
         },
         error: function(xhr, status, err) {
                     console.log(xhr);
                     console.log(status);
                     console.log(err);
+                    console.log("there is an error");
                 }
         });
 };
 
+// IMPORTANT: THIS IS WHERE YOU CAN SET FUNCTIONS TO WORK ON PAGE LOAD 
 getConcertData(artistName);
 
 // jQuery for the ticketmaster Orbit
@@ -116,76 +119,74 @@ $("#search").on("click", function() {
     // resets the variables upon button press
     artistName = "";
     songTitle = "";
-    lyrics = "";
-    genre = "";
     
     // checks to see what value is selected with the form and sets the corresponding boolean to true and the other ones to false
     if ($("#select :selected").val() === 'artist') {
-        isArtist = true;
-        isSong = false;
-        isLyrics = false;
-        isGenre = false;
+        var isArtist = true;
+        var isSong = false;
+        var isAlbum = false;
     } else if ($('#select :selected').val() === 'song') {
         isArtist = false;
         isSong = true;
-        isLyrics = false;
-        isGenre = false;
-    } else if ($('#select :selected').val() === 'lyrics') {
+        isAlbum = false;
+    } else if ($("#select :selected").val() === 'album') {
         isArtist = false;
         isSong = false;
-        isLyrics = true;
-        isGenre = false;
-    } else if ($("#select :selected").val() === 'genre') {
-        isArtist = false;
-        isSong = false;
-        isLyrics = false;
-        isGenre = true;
+        isAlbum = true;
     }
 
     // console.log("isArtist = " + isArtist);
     // console.log("isSong = " + isSong);
-    // console.log("isLyrics = " + isLyrics);
-    // console.log("isGenre = " + isGenre);
+    // console.log("isAlbum = " + isAlbum);
 
-    // logic for setting the variables that will be used for api's and further functionality
+    // IMPORTANT: ALL DATA SHOULD BE DISPLAYED THROUGH THIS FUNCTION UNDERNEATH THE CORRESPONDING FETCH REQUEST
+    // the user searches for an artist it will dynamically display the concert data
     if (isArtist) {
         artistName = keyword;
         localStorage.setItem("artist", artistName);
+        getConcertData(artistName);
     } else if (isSong) {
-        songTitle = keyword;
-        localStorage.setItem("song", songTitle);
-    } else if (isLyrics) {
-        lyrics = keyword;
-        localStorage.setItem("lyrics", lyrics);
-    } else if (isGenre) {
-        genre = keyword;
-        localStorage.setItem("genre", genre);
-    }
+        // if the user searches for a song it will find the artist information and display concerts
+        var songTitle = keyword;
+        fetch("https://ws.audioscrobbler.com/2.0/?method=track.search&track=" + songTitle + "&api_key=" + lastFmApi + "&format=json")
+            .then(function(response) {
+                response.json().then(function(data) {
+                    artistName = data.results.trackmatches.track[0].artist;
+                    localStorage.setItem("artist", artistName);
+                    getConcertData(artistName);
+                })
+        })
+    } else if (isAlbum) {
+        // if the user searches for an album it will find the artist information and display concerts
+        var albumName = keyword;
+        fetch("https://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=" + lastFmApi + "&format=json")
+            .then(function(response) {
+                response.json().then(function(data) {
+                    artistName = data.results.albummatches.album[0].artist;
+                    localStorage.setItem("artist", artistName);
+                    getConcertData(artistName);
+                })
+            })
+        }
+    
 
     // console.log(artistName + " is the artist.");
     // console.log(songTitle + " is the title.");
     // console.log(lyrics + " are the lyrics.");
     // console.log(genre + " is the genre.")
 
-    getConcertData(artistName);
+    // resets the input field
+    $("input[name='keyword']").val("");
 });
 
 
-
-//  logic for youtube api
-// Load the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/player_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
-// Replace the 'ytplayer' element with an <iframe> and
-// YouTube player after the API code downloads.
-var player;
-function onYouTubePlayerAPIReady() {
-    player = new YT.Player('ytplayer', {
-        height: '360',
-        width: '640',
-        videoId: '93uEGbM4gt4'
-    });
+var getYoutubeId = function(artistName) {
+    fetch("https://www.googleapis.com/youtube/v3/search?q=" + artistName + "&videoEmbeddable=true&type=video&key=" + googleApi)
+        .then(function(response) {
+            response.json().then(function(data) {
+                // console.log(data);
+            })
+        })
 }
+
+// getYoutubeId(artistName);
