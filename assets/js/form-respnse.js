@@ -4,7 +4,7 @@ var searchInputEl = $("input[name='keyword']")
 var searchSelectEl = $("#select :selected");
 
 // API Keys
-var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
+var lastFmApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
