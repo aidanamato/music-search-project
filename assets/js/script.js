@@ -1,7 +1,7 @@
 // IMPORTANT: SET THE CORRESPONDING API KEY HERE AS A STRING TO USE THE APPLICATION
 var ticketmasterApi;
 var googleApi;
-var lastFmApi;
+var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
 var tasteDiveApi;
 
 // variable that will be used to search the api's set when the search button is pressed further down
