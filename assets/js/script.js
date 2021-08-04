@@ -4,9 +4,10 @@ var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 
 // API Keys
-var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
-var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
-var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
+var lastFmApi;
+var ticketmasterApi;
+var googleApi;
+var tastediveApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
@@ -205,7 +206,12 @@ var displayYoutubePlayerEl = function(searchTerm) {
         .then(function(response) {
             if (response.ok) {
               response.json().then(function(data) {
-                console.log(data);
+                var youtubeId = data.items[0].id.videoId;
+
+                var videoContainerEl = $("<div>").addClass("video-container");
+                videoContainerEl.html("<h2 id='song-title' style='text-align: center;'>" + searchTerm +"</h2><div class='video-player-container'><div id='ytplayer'><iframe width='560' height='400' src='https://www.youtube.com/embed/" + youtubeId + "' title='Youtube video player frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div></div>")
+
+                $("#form-response").append(videoContainerEl);
               });
             } else {
               console.log("YouTube call was not okay");
@@ -313,6 +319,19 @@ var displayEventCarouselEl = function(artistName) {
               }
       });
 };
+
+
+// Displays a list of similar artists
+
+var displaySimilarArtists = function(artistName){
+    fetch("https://cors-anywhere.herokuapp.comhttps://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
+    .then(function(response) {
+        response.json().then(function(data) {
+            console.log(data);
+        })
+    }) 
+};
+
 
 // search form event listener
 searchFormEl.on("submit", searchButtonHandler);
