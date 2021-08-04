@@ -1,34 +1,100 @@
-/* overlay custom styles start */
-.translucent-form-overlay {
-    max-width: 500px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  padding: 16px;
+}
+
+/* Search Form Styles Start */
+.search-form {
+  background-color: lightblue;
+}
+
+.form-container {
+  padding-top: 12px;
+}
+/* Search Form Styles End */
+
+/* Search Response Styles Start */
+.form-response {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: tan;
+}
+
+.search-response {
+  width: 40%;
+  padding: 8px;
+  border: solid 1px;
+}
+
+.response-top {
+  margin-bottom: 18px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 100px;
+  text-align: center;
+}
+
+.song-container, .genre-container {
+  padding-bottom: 0;
+}
+
+.response-title {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.response-subtitle {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.album-name {
+  font-size: 20px;
+}
+
+.list-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.track-list {
+  margin-bottom: 0;
+  line-height: 2;
+}
+/* Search Response Styles End */
+
+/* Carousel Styles Start */
+.orbit-container {
+  image-rendering: auto;
+}
+
+.orbit-caption {
+  text-align: center;
+}
+/* Carousel Styles End */
+
+/* Media Queries */
+@media screen and (max-width: 639px) {
+  .search-response {
     width: 100%;
-    background-color: rgba(54, 54, 54, 0.8);
-    padding: 20px;
-    color: #fefefe;
   }
   
-  .translucent-form-overlay .columns.row {
-    display: block;
+  .video-container {
+    width: 100%;
   }
-  
-  .translucent-form-overlay h3, .translucent-form-overlay label {
-    color: #fefefe;
+
+  .video-container iframe {
+    width: 100%;
   }
-  
-  .translucent-form-overlay input, .translucent-form-overlay select {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input::-webkit-input-placeholder {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input:-ms-input-placeholder {
-    color: #8a8a8a;
-  }
-  
-  .translucent-form-overlay input::placeholder {
-    color: #8a8a8a;
-  }
-  /* overlay custom styles end */
-  
+}
+
