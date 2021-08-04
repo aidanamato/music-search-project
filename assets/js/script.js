@@ -1,192 +1,318 @@
-// IMPORTANT: SET THE CORRESPONDING API KEY HERE AS A STRING TO USE THE APPLICATION
-var ticketmasterApi;
-var googleApi;
+// DOM Elements
+var searchFormEl = $("#search-form");
+var searchInputEl = $("input[name='keyword']");
+var searchSelectEl = $("#select");
+
+// API Keys
 var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
-var tasteDiveApi;
+var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
+var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
 
-// variable that will be used to search the api's set when the search button is pressed further down
-var artistName = localStorage.getItem("artist");
+var searchButtonHandler = function(event) {
+  event.preventDefault();
 
-var getConcertData = function(artistName) {
-    $(".orbit-container").html("");
+  // remove previous response element
+  var artistResponseEl = $("#form-response");
+  if (artistResponseEl) {
+    artistResponseEl.remove();
+  }
 
-    $.ajax({
-        type:"GET",
-        url:"https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&size=4&apikey=" + ticketmasterApi,
-        async:true,
-        dataType: "json",
-        success: function(json) {
-            // checks to see if there are any events and if not displays that there are no events for the listed artist
-            if (json.page.totalElements > 0) {
-                var events = json._embedded.events;
-                // console.log(events);
+  // variable holding user search query
+  var searchValue = searchInputEl.val();
 
-                // iterates through the results for each of the four events returned
-                for (var i = 0; i < events.length; i++) {
-                    // sets the events name for each object in the array
-                    var eventName = events[i].name;
+  // if user searches artist
+  if (searchSelectEl.val() === "artist") {
+    artistSearchHandler(searchValue);
+  }
 
-                    // sets the event date and converts it into a moment object for display
-                    var date = events[i].dates.start.localDate;
-                    var eventDate = moment(date).format("MMMM Do, YYYY")
+  // if user searches song
+  if (searchSelectEl.val() === "song") {
+    songSearchHandler(searchValue);
+  }
 
-                    // sets the event time and converts it into a moment object for display
-                    var time = events[i].dates.start.localTime;
-                    var eventTime = moment(time, "HH:mm:ss").format("h:mm A")
-
-                    // sets the location for the event
-                    var eventLocation = events[i]._embedded.venues[0].name;
-
-                    // sets the variable for the event photo
-                    var eventPhoto = events[i].images[0].url;
-
-                    // sets the url for the event
-                    var eventUrl = events[i].url;
-
-                    // console.log(eventName);
-                    // console.log(eventDate);
-                    // console.log(eventTime);
-                    // console.log(eventLocation);
-                    
-                    // creates the list item that holds other data
-                    var listEl = $("<li>").attr("data-slide", "class");
-                    $(listEl).addClass("orbit-slide");
-
-                    // sets the is-active class to the first list item created
-                    if (i === 0) {
-                        $(listEl).addClass("is-active");
-                    }
-
-                    // creates the figure container to hold the image and caption
-                    var figureEl = $("<figure>").addClass("orbit-figure");
-
-                    // creates the anchor tag to link to ticketmaster
-                    var anchorEl = $("<a>").attr("href", eventUrl);
-                    $(anchorEl).attr("target", "_blank");
-
-                    // holds the events image
-                    var imgEl = $("<img>").addClass("orbit-image");
-                    $(imgEl).attr("src", eventPhoto);
-
-                    // holds the caption for the event
-                    var captionEl = $("<figcaption>").addClass("orbit-caption");
-                    $(captionEl).html(eventName + "</br><span>" + eventDate + "</span></br><span>" + eventTime + "</span></br><span>" + eventLocation + "</span>");
-
-                    // appends the image and caption to the anchor
-                    $(anchorEl).append(imgEl);
-                    $(anchorEl).append(captionEl);
-
-                    // appends the anchor to the figure container
-                    $(figureEl).append(anchorEl);
-
-                    // appends the figure container to the list item
-                    $(listEl).append(figureEl);
-
-                    // appends the list item to the orbit container
-                    $(".orbit-container").append(listEl);
-                    
-                    // reinitializes the orbit instance to update it
-                    Foundation.reInit($(".orbit"));
-                }
-            } else {
-                console.log("no events");
-                $(".orbit").html("<h1>There are no events for that Artist<h1>")
-            }
-                         
-
-            
-        },
-        error: function(xhr, status, err) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(err);
-                    console.log("there is an error");
-                }
-        });
+  // if user searches album
+  if (searchSelectEl.val() === "album") {
+    albumSearchHandler(searchValue);
+  }
 };
 
-// IMPORTANT: THIS IS WHERE YOU CAN SET FUNCTIONS TO WORK ON PAGE LOAD 
-getConcertData(artistName);
+// search handler functions
+var artistSearchHandler = function(artistName) {
+  // run fetch request to search artist names with user search query
+  fetch("https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=" + artistName + "&api_key=" + lastFmApi + "&format=json")
+    .then(function(response) {
+      if(response.ok) {
+        response.json().then(function(data) {
+          // get the artist name of first search result
+          artistName = data.results.artistmatches.artist[0].name;
 
-// jQuery for the ticketmaster Orbit
+          // run fetch requests for artist name, track list, and album art of first track
+          fetch("https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=" + artistName + "&api_key=" + lastFmApi + "&format=json")
+            .then(function(response) {
+              if(response.ok) {
+                response.json().then(function(data) {
+                  
+                  // verify artist name
+                  artistName = data.toptracks['@attr'].artist;
+
+                  // create array to hold top 5 tracks
+                  var trackList = [];
+
+                  // add 5 songs to trackList array
+                  for (var i = 0; i < 5; i++) {
+                    var artistTrack = data.toptracks.track[i].name;
+                    trackList.push(artistTrack);
+                  }
+
+                  // run fetch request for album image of first song in trackList array
+                  fetch("https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + lastFmApi + "&artist=" + artistName + "&track=" + trackList[0] + "&format=json")
+                    .then(function(response) {
+                      if(response.ok) {
+                        response.json().then(function(data) {
+                          
+                          // retrieve album title and image
+                          var albumName = data.track.album.title;
+                          var albumImg = data.track.album.image[3]["#text"];
+
+                          // create artist response element
+                          artistResponseEl = $("<section id='form-response' class='form-response'>");
+
+                          artistResponseEl.html("<div class='search-response grid-x'><div class='response-top cell'><div class='grid-x'><div class='title-container cell small-7'><h2 class='response-title'>" + artistName + "</h2></div><div class='cell small-5'><img class='album-img' src='" + albumImg + "' alt='The album art for " + albumName + ".'/></div></div></div><div class='cell'><h3>Top Tracks</h3><ol class='track-list'><li>" + trackList[0] + "</li><li>" + trackList[1] + "</li><li>" + trackList[2] + "</li><li>" + trackList[3] + "</li><li>" + trackList[4] + "</li></ol></div></div>");
+
+                          searchFormEl.after(artistResponseEl);
+
+                          // call youtube and carousel functions
+                          displayYoutubePlayerEl(trackList[0]);
+                          displayEventCarouselEl(artistName);
+                        });
+                      } else {
+                        console.log("Last.fm request not okay");
+                      }
+                    });
+                  });
+              } else {
+                console.log("Last.fm request not okay");
+              }
+            });
+        });
+      } else {
+        console.log("Last.fm request not okay")
+      }
+    });
+};
+
+var songSearchHandler = function(songName) {
+  // run fetch request to search tracks with user search query
+  fetch("https://ws.audioscrobbler.com/2.0/?method=track.search&track=" + songName + "&api_key=" + lastFmApi + "&format=json")
+    .then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+          // get song title and artist name of first response
+          songName = data.results.trackmatches.track[0].name;
+          var artistName = data.results.trackmatches.track[0].artist;
+
+          // get album art of song
+          fetch("https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + lastFmApi + "&artist=" + artistName + "&track=" + songName + "&format=json")
+            .then(function(response) {
+              if (response.ok) {
+                response.json().then(function(data) {
+                  
+                  // retrieve album title and image
+                  var albumName = data.track.album.title;
+                  var albumImg = data.track.album.image[3]["#text"];
+
+                  // create artist response element
+                  songResponseEl = $("<section id='form-response' class='form-response'>");
+
+                  songResponseEl.html("<div class='search-response grid-x'><div class='title-container song-container cell small-7'><h2 class='response-title'>" + songName + "</h2><h3 class='response-subtitle'>" + artistName + "</h3><h3 class='album-name'>" + albumName + "</h3></div><div class='cell small-5'><img class='album-img' src='" + albumImg + "' alt='The album art for " + albumName + ".'/></div></div>");
+
+                  searchFormEl.after(songResponseEl);
+
+                  // call youtube and carousel functions
+                  displayYoutubePlayerEl(songName);
+                  displayEventCarouselEl(artistName);
+                });
+              } else {
+                console.log("Last.fm request not okay");
+              }
+            });
+        })
+      } else {
+        console.log("Last.fm request not okay");
+      }
+    });
+};
+
+var albumSearchHandler = function(albumName) {
+  // run fetch request to search albums with user search query
+  fetch("https://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=" + lastFmApi + "&format=json")
+    .then(function(response) {
+      if (response.ok) {
+        response.json().then(function(data) {
+          // run fetch request to get album data of first result
+          var albumName = data.results.albummatches.album[0].name;
+          var artistName = data.results.albummatches.album[0].artist;
+          fetch("https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=" + lastFmApi + "&artist=" + artistName + "&album=" + albumName + "&format=json")
+            .then(function(response) {
+              if (response.ok)  {
+                response.json().then(function(data) {
+                  // retrieve remaining album data
+                  var albumImg = data.album.image[3]["#text"];
+                  // create array for track list
+                  var trackList = [];
+                  for (var i = 0; i < data.album.tracks.track.length; i++) {
+                    trackList.push(data.album.tracks.track[i].name);
+                  }
+
+                  // create album response element
+                  albumResponseEl = $("<section id='form-response' class='form-response'>");
+
+                  albumResponseEl.html("<div class='search-response grid-x'><div class='response-top cell'><div class='grid-x'><div class='title-container cell small-7'><h2 class='response-title'>" + albumName + "</h2><h3 class='response-subtitle'>" + artistName + "</h3></div><div class='cell small-5'><img class='album-img' src='" + albumImg + "' alt='The album art for the album.'/></div></div></div><ol class='track-list cell'></ol></div>");
+
+                  searchFormEl.after(albumResponseEl);
+
+                  trackListEl = $(".track-list");
+                  console.log(trackListEl);
+
+                  // append track names to track list element
+                  for (var i = 0; i < trackList.length; i++) {
+                    trackListEl.append("<li>"+ trackList[i] + "</li>");
+                  }
+
+                  // call youtube and carousel functions
+                  displayYoutubePlayerEl(trackList[0]);
+                  displayEventCarouselEl(artistName);
+                });
+              } else {
+                console.log("Last.fm request not okay");
+              }
+            });
+        });
+      } else {
+        console.log("Last.fm request not okay");
+      }
+    });
+};
+
+var genreSearchHandler = function() {
+
+};
+
+// Youtube Player
+var displayYoutubePlayerEl = function(searchTerm) {
+  // get YT ID
+  fetch("https://www.googleapis.com/youtube/v3/search?q=" + searchTerm + "&videoEmbeddable=true&type=video&key=" + googleApi)
+        .then(function(response) {
+            if (response.ok) {
+              response.json().then(function(data) {
+                console.log(data);
+              });
+            } else {
+              console.log("YouTube call was not okay");
+            }
+        })
+};
+
+// Ticketmaster Carousel
 $(document).foundation();
 
-// logic for the search form
-$("#search").on("click", function() {
-    // stores the keyword value in a variable for future use
-    var keyword = $("input[name='keyword']").val();
+var displayEventCarouselEl = function(artistName) {
+  $(".orbit-container").html("");
 
-    // resets the variables upon button press
-    artistName = "";
-    songTitle = "";
-    
-    // checks to see what value is selected with the form and sets the corresponding boolean to true and the other ones to false
-    if ($("#select :selected").val() === 'artist') {
-        var isArtist = true;
-        var isSong = false;
-        var isAlbum = false;
-    } else if ($('#select :selected').val() === 'song') {
-        isArtist = false;
-        isSong = true;
-        isAlbum = false;
-    } else if ($("#select :selected").val() === 'album') {
-        isArtist = false;
-        isSong = false;
-        isAlbum = true;
-    }
+  $.ajax({
+      type:"GET",
+      url:"https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&size=4&apikey=" + ticketmasterApi,
+      async:true,
+      dataType: "json",
+      success: function(json) {
+          // checks to see if there are any events and if not displays that there are no events for the listed artist
+          if (json.page.totalElements > 0) {
+              var events = json._embedded.events;
+              // console.log(events);
 
-    // console.log("isArtist = " + isArtist);
-    // console.log("isSong = " + isSong);
-    // console.log("isAlbum = " + isAlbum);
+              // iterates through the results for each of the four events returned
+              for (var i = 0; i < events.length; i++) {
+                  // sets the events name for each object in the array
+                  var eventName = events[i].name;
 
-    // IMPORTANT: ALL DATA SHOULD BE DISPLAYED THROUGH THIS FUNCTION UNDERNEATH THE CORRESPONDING FETCH REQUEST
-    // the user searches for an artist it will dynamically display the concert data
-    if (isArtist) {
-        artistName = keyword;
-        localStorage.setItem("artist", artistName);
-        getConcertData(artistName);
-    } else if (isSong) {
-        // if the user searches for a song it will find the artist information and display concerts
-        var songTitle = keyword;
-        fetch("https://ws.audioscrobbler.com/2.0/?method=track.search&track=" + songTitle + "&api_key=" + lastFmApi + "&format=json")
-            .then(function(response) {
-                response.json().then(function(data) {
-                    artistName = data.results.trackmatches.track[0].artist;
-                    localStorage.setItem("artist", artistName);
-                    getConcertData(artistName);
-                })
-        })
-    } else if (isAlbum) {
-        // if the user searches for an album it will find the artist information and display concerts
-        var albumName = keyword;
-        fetch("https://ws.audioscrobbler.com/2.0/?method=album.search&album=" + albumName + "&api_key=" + lastFmApi + "&format=json")
-            .then(function(response) {
-                response.json().then(function(data) {
-                    artistName = data.results.albummatches.album[0].artist;
-                    localStorage.setItem("artist", artistName);
-                    getConcertData(artistName);
-                })
-            })
-        }
-    
+                  // sets the event date and converts it into a moment object for display
+                  var date = events[i].dates.start.localDate;
+                  var eventDate = moment(date).format("MMMM Do, YYYY")
 
-    // console.log(artistName + " is the artist.");
-    // console.log(songTitle + " is the title.");
-    // console.log(lyrics + " are the lyrics.");
-    // console.log(genre + " is the genre.")
+                  // sets the event time and converts it into a moment object for display
+                  var time = events[i].dates.start.localTime;
+                  var eventTime = moment(time, "HH:mm:ss").format("h:mm A")
 
-    // resets the input field
-    $("input[name='keyword']").val("");
-});
+                  // sets the location for the event
+                  var eventLocation = events[i]._embedded.venues[0].name;
 
+                  // sets the variable for the event photo
+                  var eventPhoto = events[i].images[0].url;
 
-var getYoutubeId = function(artistName) {
-    fetch("https://www.googleapis.com/youtube/v3/search?q=" + artistName + "&videoEmbeddable=true&type=video&key=" + googleApi)
-        .then(function(response) {
-            response.json().then(function(data) {
-                // console.log(data);
-            })
-        })
-}
+                  // sets the url for the event
+                  var eventUrl = events[i].url;
 
-// getYoutubeId(artistName);
+                  // console.log(eventName);
+                  // console.log(eventDate);
+                  // console.log(eventTime);
+                  // console.log(eventLocation);
+                  
+                  // creates the list item that holds other data
+                  var listEl = $("<li>").attr("data-slide", "class");
+                  $(listEl).addClass("orbit-slide");
+
+                  // sets the is-active class to the first list item created
+                  if (i === 0) {
+                      $(listEl).addClass("is-active");
+                  }
+
+                  // creates the figure container to hold the image and caption
+                  var figureEl = $("<figure>").addClass("orbit-figure");
+
+                  // creates the anchor tag to link to ticketmaster
+                  var anchorEl = $("<a>").attr("href", eventUrl);
+                  $(anchorEl).attr("target", "_blank");
+
+                  // holds the events image
+                  var imgEl = $("<img>").addClass("orbit-image");
+                  $(imgEl).attr("src", eventPhoto);
+
+                  // holds the caption for the event
+                  var captionEl = $("<figcaption>").addClass("orbit-caption");
+                  $(captionEl).html(eventName + "</br><span>" + eventDate + "</span></br><span>" + eventTime + "</span></br><span>" + eventLocation + "</span>");
+
+                  // appends the image and caption to the anchor
+                  $(anchorEl).append(imgEl);
+                  $(anchorEl).append(captionEl);
+
+                  // appends the anchor to the figure container
+                  $(figureEl).append(anchorEl);
+
+                  // appends the figure container to the list item
+                  $(listEl).append(figureEl);
+
+                  // appends the list item to the orbit container
+                  $(".orbit-container").append(listEl);
+                  
+                  // reinitializes the orbit instance to update it
+                  Foundation.reInit($(".orbit"));
+              }
+          } else {
+              console.log("no events");
+              $(".orbit").html("<h1>There are no events for that Artist<h1>")
+          }
+                       
+
+          
+      },
+      error: function(xhr, status, err) {
+                  console.log(xhr);
+                  console.log(status);
+                  console.log(err);
+                  console.log("there is an error");
+              }
+      });
+};
+
+// search form event listener
+searchFormEl.on("submit", searchButtonHandler);
