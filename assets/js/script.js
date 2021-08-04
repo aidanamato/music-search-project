@@ -4,10 +4,10 @@ var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 
 // API Keys
-var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
-var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
-var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
-var tastediveApi = "420708-Musiceve-7D2844WJ";
+var lastFmApi;
+var ticketmasterApi;
+var googleApi;
+var tastediveApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
