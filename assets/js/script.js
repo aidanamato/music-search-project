@@ -85,6 +85,7 @@ var artistSearchHandler = function(artistName) {
                           // call youtube and carousel functions
                           displayYoutubePlayerEl(trackList[0]);
                           displayEventCarouselEl(artistName);
+                          displaySimilarArtists(artistName);
                         });
                       } else {
                         console.log("Last.fm request not okay");
@@ -324,7 +325,7 @@ var displayEventCarouselEl = function(artistName) {
 // Displays a list of similar artists
 
 var displaySimilarArtists = function(artistName){
-    fetch("https://cors-anywhere.herokuapp.comhttps://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
+    fetch("https://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
     .then(function(response) {
         response.json().then(function(data) {
             console.log(data);
