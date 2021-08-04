@@ -15,36 +15,39 @@
       <!-- form overlay starts here -->
       <section id="search-form" class="search-form">
          <div class="form-container grid-container">
-         <form class="grid-x">
-            <!-- heading for the form -->
-            <h1 class="cell text-center">Search for Music</h1>
-            <!-- place to input the value that will be used for the search -->
-            <div class="cell">
-            <label for="keyword">Keyword</label>
-            <input type="text" name="keyword" placeholder="Any">
-            </div>
-            <!-- different options to use for the search -->
-            <div class="cell">
-               <label for="status">Search By</label>
-               <select name="status" type="text" id="select">
-                  <option value="artist" selected>Artist</option>
-                  <option value="song">Song</option>
-                  <option value="album">Album</option>
-                  <option value="lyrics">Lyrics</option>
-                  <option value="genre">Genre</option>
-               </select>
-            </div>
-            <!-- search button -->
-            <button type="button" class="primary button expanded search-button" id="search">
-               Search
-            </button>
+            <form class="grid-x">
+               <!-- heading for the form -->
+               <h1 class="cell text-center">Search for Music</h1>
+               <!-- place to input the value that will be used for the search -->
+               <div class="cell">
+               <label for="keyword">Keyword</label>
+               <input type="text" name="keyword" placeholder="Any">
+               </div>
+               <!-- different options to use for the search -->
+               <div class="cell">
+                  <label for="status">Search By</label>
+                  <select name="status" type="text" id="select">
+                     <option value="artist" selected>Artist</option>
+                     <option value="song">Song</option>
+                     <option value="album">Album</option>
+                     <option value="lyrics">Lyrics</option>
+                     <option value="genre">Genre</option>
+                  </select>
+               </div>
+               <!-- search button -->
+               <button type="submit" class="primary button expanded search-button" id="search">
+                  Search
+               </button>
             </form>
          </div>
       </section> 
       <!-- form ends here -->
       
       <!-- form response start -->
-      <section id="form-response" class="form-response">
+      <!--
+      <section id="form-response" class="form-response"> 
+      -->
+
          <!-- artist search -->
          <!--
          <div class="search-response grid-x">
@@ -69,7 +72,8 @@
                </ol>
             </div>
          </div>
-         <!--
+         -->
+         
 
          <!-- song search -->
          <!--
@@ -111,6 +115,7 @@
          -->
 
          <!-- Genre Search -->
+         <!--
          <div class="search-response grid-x">
             <div class="response-top cell">
                <div class="grid-x">
@@ -131,15 +136,21 @@
                </ol>
             </div>
          </div>
+         -->
+         
          <!-- form response end -->
 
          <!-- video player starts here -->
+         <!--
          <div class="video-container">
             <h2 id="song-title">Song Title</h2>
             <div class="video-player-container">
-               <div id="ytplayer"></div>
+               <div id="ytplayer">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/NUTGr5t3MoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+               </div>
             </div>  
          </div> 
+         -->
       </section>
       
       <section id="event-carousel" class="event-carousel">
@@ -195,7 +206,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src="assets/js/script.js"></script>
+      <script src="./assets/js/script.js"></script>
    </body>
 
 </html>
