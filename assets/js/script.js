@@ -4,10 +4,10 @@ var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 
 // API Keys
-var lastFmApi;
-var ticketmasterApi;
-var googleApi;
-var tastediveApi;
+var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
+var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
+var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
+var tastediveApi = "420708-Musiceve-7D2844WJ";
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
@@ -85,6 +85,7 @@ var artistSearchHandler = function(artistName) {
                           // call youtube and carousel functions
                           displayYoutubePlayerEl(trackList[0]);
                           displayEventCarouselEl(artistName);
+                          displaySimilarArtists(artistName);
                         });
                       } else {
                         console.log("Last.fm request not okay");
@@ -324,7 +325,7 @@ var displayEventCarouselEl = function(artistName) {
 // Displays a list of similar artists
 
 var displaySimilarArtists = function(artistName){
-    fetch("https://cors-anywhere.herokuapp.comhttps://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
+    fetch("https://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
     .then(function(response) {
         response.json().then(function(data) {
             console.log(data);
