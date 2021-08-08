@@ -233,6 +233,9 @@ var displayEventCarouselEl = function(artistName) {
       success: function(json) {
           // checks to see if there are any events and if not displays that there are no events for the listed artist
           if (json.page.totalElements > 0) {
+            // resets the orbit conatiner html
+            $(".orbit").html("<div class='orbit-wrapper'><div class='orbit-controls'><button class='orbit-previous'><span class='show-for-sr'>Previous Slide</span>&#9664;&#xFE0E;</button><button class='orbit-next'><span class='show-for-sr'>Next Slide</span>&#9654;&#xFE0E;</button></div><ul class='orbit-container'></ul></div><nav class='orbit-bullets'><button class='is-active' data-slide='0'></button><button data-slide='1'></button><button data-slide='2'></button><button data-slide='3'></button></nav>")
+
               var events = json._embedded.events;
               console.log(events);
 
@@ -310,7 +313,7 @@ var displayEventCarouselEl = function(artistName) {
                   Foundation.reInit($(".orbit"));
               }
           } else {
-              console.log("no events");
+              // console.log("no events");
               $(".orbit").html("<h1>There are no events for that Artist<h1>")
           }
                        
