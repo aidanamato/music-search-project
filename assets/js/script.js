@@ -4,9 +4,9 @@ var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 
 // API Keys
-var lastFmApi;
-var ticketmasterApi;
-var googleApi;
+var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
+var ticketmasterApi= "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
+var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
 var tastediveApi;
 
 var searchButtonHandler = function(event) {
@@ -224,6 +224,7 @@ $(document).foundation();
 
 var displayEventCarouselEl = function(artistName) {
   $(".orbit-container").html("");
+  $(".orbit-bullets").html("");
 
   $.ajax({
       type:"GET",
@@ -234,7 +235,7 @@ var displayEventCarouselEl = function(artistName) {
           // checks to see if there are any events and if not displays that there are no events for the listed artist
           if (json.page.totalElements > 0) {
               var events = json._embedded.events;
-              // console.log(events);
+              console.log(events);
 
               // iterates through the results for each of the four events returned
               for (var i = 0; i < events.length; i++) {
@@ -262,6 +263,9 @@ var displayEventCarouselEl = function(artistName) {
                   // console.log(eventDate);
                   // console.log(eventTime);
                   // console.log(eventLocation);
+
+                  var bulletEl = $("<button>").attr("data-slide", "class");
+                  var bulletContainer = $(".orbit-bullets");
                   
                   // creates the list item that holds other data
                   var listEl = $("<li>").attr("data-slide", "class");
@@ -270,6 +274,7 @@ var displayEventCarouselEl = function(artistName) {
                   // sets the is-active class to the first list item created
                   if (i === 0) {
                       $(listEl).addClass("is-active");
+                      $(bulletEl).addClass("is-active");
                   }
 
                   // creates the figure container to hold the image and caption
@@ -296,6 +301,8 @@ var displayEventCarouselEl = function(artistName) {
 
                   // appends the figure container to the list item
                   $(listEl).append(figureEl);
+
+                  $(bulletContainer).append(bulletEl);
 
                   // appends the list item to the orbit container
                   $(".orbit-container").append(listEl);
