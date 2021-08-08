@@ -4,10 +4,9 @@ var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 
 // API Keys
-var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
-var ticketmasterApi= "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
-var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
-var tastediveApi;
+var lastFmApi;
+var ticketmasterApi;
+var googleApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
@@ -326,19 +325,6 @@ var displayEventCarouselEl = function(artistName) {
               }
       });
 };
-
-
-// Displays a list of similar artists
-
-var displaySimilarArtists = function(artistName){
-    fetch("https://cors-anywhere.herokuapp.comhttps://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
-    .then(function(response) {
-        response.json().then(function(data) {
-            console.log(data);
-        })
-    }) 
-};
-
 
 // search form event listener
 searchFormEl.on("submit", searchButtonHandler);
