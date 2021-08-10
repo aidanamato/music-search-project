@@ -2,15 +2,18 @@
 var searchFormEl = $("#search-form");
 var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
+var eventCarouselEl = $("#event-carousel");
 
 // API Keys
 var lastFmApi;
 var ticketmasterApi;
 var googleApi;
-var tastediveApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
+
+  searchFormEl.removeClass("fullscreen");
+  eventCarouselEl.removeClass("no-display");
 
   // remove previous response element
   var artistResponseEl = $("#form-response");
@@ -225,6 +228,7 @@ $(document).foundation();
 
 var displayEventCarouselEl = function(artistName) {
   $(".orbit-container").html("");
+  $(".orbit-bullets").html("");
 
   $.ajax({
       type:"GET",
@@ -234,8 +238,11 @@ var displayEventCarouselEl = function(artistName) {
       success: function(json) {
           // checks to see if there are any events and if not displays that there are no events for the listed artist
           if (json.page.totalElements > 0) {
+            // resets the orbit conatiner html
+            $(".orbit").html("<div class='orbit-wrapper'><div class='orbit-controls'><button class='orbit-previous'><span class='show-for-sr'>Previous Slide</span>&#9664;&#xFE0E;</button><button class='orbit-next'><span class='show-for-sr'>Next Slide</span>&#9654;&#xFE0E;</button></div><ul class='orbit-container'></ul></div><nav class='orbit-bullets'><button class='is-active' data-slide='0'></button><button data-slide='1'></button><button data-slide='2'></button><button data-slide='3'></button></nav>")
+
               var events = json._embedded.events;
-              // console.log(events);
+              console.log(events);
 
               // iterates through the results for each of the four events returned
               for (var i = 0; i < events.length; i++) {
@@ -263,6 +270,9 @@ var displayEventCarouselEl = function(artistName) {
                   // console.log(eventDate);
                   // console.log(eventTime);
                   // console.log(eventLocation);
+
+                  var bulletEl = $("<button>").attr("data-slide", "class");
+                  var bulletContainer = $(".orbit-bullets");
                   
                   // creates the list item that holds other data
                   var listEl = $("<li>").attr("data-slide", "class");
@@ -271,6 +281,7 @@ var displayEventCarouselEl = function(artistName) {
                   // sets the is-active class to the first list item created
                   if (i === 0) {
                       $(listEl).addClass("is-active");
+                      $(bulletEl).addClass("is-active");
                   }
 
                   // creates the figure container to hold the image and caption
@@ -298,6 +309,8 @@ var displayEventCarouselEl = function(artistName) {
                   // appends the figure container to the list item
                   $(listEl).append(figureEl);
 
+                  $(bulletContainer).append(bulletEl);
+
                   // appends the list item to the orbit container
                   $(".orbit-container").append(listEl);
                   
@@ -305,7 +318,7 @@ var displayEventCarouselEl = function(artistName) {
                   Foundation.reInit($(".orbit"));
               }
           } else {
-              console.log("no events");
+              // console.log("no events");
               $(".orbit").html("<h1>There are no events for that Artist<h1>")
           }
                        
