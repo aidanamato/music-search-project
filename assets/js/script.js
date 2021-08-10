@@ -5,9 +5,9 @@ var searchSelectEl = $("#select");
 var eventCarouselEl = $("#event-carousel");
 
 // API Keys
-var lastFmApi = "84c7b0a48da18ecc54010deb6d0668a3";
-var ticketmasterApi = "YYRv4qLA9UqXh2zNJFQwAPAZvyClko52";
-var googleApi = "AIzaSyBP7ovZKF0a2TlcfdFLzD0UcxXrGEXcRw8";
+var lastFmApi;
+var ticketmasterApi;
+var googleApi;
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
@@ -88,6 +88,7 @@ var artistSearchHandler = function(artistName) {
                           // call youtube and carousel functions
                           displayYoutubePlayerEl(trackList[0]);
                           displayEventCarouselEl(artistName);
+                          displaySimilarArtists(artistName);
                         });
                       } else {
                         console.log("Last.fm request not okay");
@@ -332,6 +333,7 @@ var displayEventCarouselEl = function(artistName) {
               }
       });
 };
+
 
 // search form event listener
 searchFormEl.on("submit", searchButtonHandler);
