@@ -5,6 +5,9 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
       <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.css">
       <link rel="stylesheet" href="assets/css/style.css">
@@ -13,11 +16,14 @@
 
    <body>
       <!-- form overlay starts here -->
-      <section id="search-form" class="search-form">
+      <section id="search-form" class="search-form fullscreen">
          <div class="form-container grid-container">
             <form class="grid-x">
                <!-- heading for the form -->
-               <h1 class="cell text-center">Search for Music</h1>
+               <div class="cell text-center">
+                  <h1>Musigle</h1>
+                  <h2>Search for Music</h2>
+               </div>
                <!-- place to input the value that will be used for the search -->
                <div class="cell">
                <label for="keyword">Keyword</label>
@@ -30,8 +36,6 @@
                      <option value="artist" selected>Artist</option>
                      <option value="song">Song</option>
                      <option value="album">Album</option>
-                     <option value="lyrics">Lyrics</option>
-                     <option value="genre">Genre</option>
                   </select>
                </div>
                <!-- search button -->
@@ -43,7 +47,7 @@
       </section> 
       <!-- form ends here -->
       
-      <section id="event-carousel" class="event-carousel">
+      <section id="event-carousel" class="event-carousel no-display">
          <!-- begin orbit class -->
          <div class="orbit" role="region" aria-label="Concert Events" data-orbit>
             <div class="orbit-wrapper">

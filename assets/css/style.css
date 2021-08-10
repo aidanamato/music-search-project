@@ -13,8 +13,26 @@ section {
   background-color: lightblue;
 }
 
+.fullscreen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-bottom: 15vh;
+}
+
+.fullscreen .form-container {
+  width: 80%;
+}
+
 .form-container {
   padding-top: 12px;
+}
+
+.form-container h1 {
+  font-size: 80px;
+  font-family: 'Staatliches', cursive;
+  color: rgb(25, 107, 230);
+  margin-bottom: 0;
 }
 /* Search Form Styles End */
 
@@ -74,6 +92,10 @@ section {
 /* Search Response Styles End */
 
 /* Carousel Styles Start */
+.no-display {
+  display: none;
+}
+
 .orbit-container {
   image-rendering: auto;
 }
@@ -85,6 +107,18 @@ section {
 
 /* Media Queries */
 @media screen and (max-width: 639px) {
+  .fullscreen {
+    align-items: flex-start;
+  }
+  
+  .fullscreen .form-container {
+    width: 100%;
+  }
+
+  .form-container h1 {
+    font-size: 60px;
+  }
+  
   .search-response {
     width: 100%;
   }
