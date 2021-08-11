@@ -3,11 +3,20 @@ var searchFormEl = $("#search-form");
 var searchInputEl = $("input[name='keyword']");
 var searchSelectEl = $("#select");
 var eventCarouselEl = $("#event-carousel");
+var pastSearchEl = $("#previous-search");
 
 // API Keys
 var lastFmApi;
 var ticketmasterApi;
 var googleApi;
+
+// array for the previous searches also sets the array if there is none
+var previousSearchesArr = JSON.parse(localStorage.getItem("previousSearches"));
+
+if (previousSearchesArr == null) {
+  previousSearchesArr = [];
+  localStorage.setItem("previousSearches", JSON.stringify(previousSearchesArr));
+}
 
 var searchButtonHandler = function(event) {
   event.preventDefault();
@@ -27,16 +36,49 @@ var searchButtonHandler = function(event) {
   // if user searches artist
   if (searchSelectEl.val() === "artist") {
     artistSearchHandler(searchValue);
+    previousSearchesArr.push(searchValue + ", Artist");
+    localStorage.setItem("previousSearches", JSON.stringify(previousSearchesArr));
   }
 
   // if user searches song
   if (searchSelectEl.val() === "song") {
     songSearchHandler(searchValue);
+    previousSearchesArr.push(searchValue + ", Song");
+    localStorage.setItem("previousSearches", JSON.stringify(previousSearchesArr));
   }
 
   // if user searches album
   if (searchSelectEl.val() === "album") {
     albumSearchHandler(searchValue);
+    previousSearchesArr.push(searchValue + ", Album");
+    localStorage.setItem("previousSearches", JSON.stringify(previousSearchesArr));
+  }
+};
+
+var pastSearchHandler = function(target) {
+  pastSearchArr = target.target.innerText.split(", ");
+
+  var searchType = pastSearchArr[1];
+  var searchBy = pastSearchArr[0];
+
+  // remove previous response element
+  var artistResponseEl = $("#form-response");
+  if (artistResponseEl) {
+    artistResponseEl.remove();
+  }
+
+  // console.log(searchType);
+  // console.log(searchBy);
+
+  searchFormEl.removeClass("fullscreen");
+  eventCarouselEl.removeClass("no-display");
+
+  if (searchType == "Artist") {
+    artistSearchHandler(searchBy);
+  } else if (searchType == "Song") {
+    songSearchHandler(searchBy);
+  } else if (searchType == "Album") {
+    albumSearchHandler(searchBy);
   }
 };
 
@@ -88,7 +130,6 @@ var artistSearchHandler = function(artistName) {
                           // call youtube and carousel functions
                           displayYoutubePlayerEl(trackList[0]);
                           displayEventCarouselEl(artistName);
-                          displaySimilarArtists(artistName);
                         });
                       } else {
                         console.log("Last.fm request not okay");
@@ -239,10 +280,10 @@ var displayEventCarouselEl = function(artistName) {
           // checks to see if there are any events and if not displays that there are no events for the listed artist
           if (json.page.totalElements > 0) {
             // resets the orbit conatiner html
-            $(".orbit").html("<div class='orbit-wrapper'><div class='orbit-controls'><button class='orbit-previous'><span class='show-for-sr'>Previous Slide</span>&#9664;&#xFE0E;</button><button class='orbit-next'><span class='show-for-sr'>Next Slide</span>&#9654;&#xFE0E;</button></div><ul class='orbit-container'></ul></div><nav class='orbit-bullets'><button class='is-active' data-slide='0'></button><button data-slide='1'></button><button data-slide='2'></button><button data-slide='3'></button></nav>")
+            $(".orbit").html("<div class='orbit-wrapper'><div class='orbit-controls'><button class='orbit-previous'><span class='show-for-sr'>Previous Slide</span>&#9664;&#xFE0E;</button><button class='orbit-next'><span class='show-for-sr'>Next Slide</span>&#9654;&#xFE0E;</button></div><ul class='orbit-container'></ul></div><nav class='orbit-bullets'></nav>")
 
               var events = json._embedded.events;
-              console.log(events);
+              // console.log(events);
 
               // iterates through the results for each of the four events returned
               for (var i = 0; i < events.length; i++) {
@@ -337,15 +378,29 @@ var displayEventCarouselEl = function(artistName) {
 
 // Displays a list of similar artists
 
-var displaySimilarArtists = function(artistName){
-    fetch("https://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
-    .then(function(response) {
-        response.json().then(function(data) {
-            console.log(data);
-        })
-    }) 
-};
+// var displaySimilarArtists = function(artistName){
+//     fetch("https://tastedive.com/api/similar?q=" + artistName + "&k=" + tastediveApi)
+//     .then(function(response) {
+//         response.json().then(function(data) {
+//             console.log(data);
+//         })
+//     }) 
+// };
 
 
 // search form event listener
 searchFormEl.on("submit", searchButtonHandler);
+
+// handles the searching when using the past search modal
+pastSearchEl.on("click", function(target) {
+  pastSearchHandler(target);
+});
+
+// displays the previous search from localStorage
+for (var i = 0; i < previousSearchesArr.length; i++) {
+  var pastSearchBtn = $("<button>");
+  pastSearchBtn.addClass("button expanded");
+  pastSearchBtn.text(previousSearchesArr[i]);
+
+  pastSearchEl.append(pastSearchBtn);
+}
