@@ -70,15 +70,19 @@ var pastSearchHandler = function(target) {
   // console.log(searchType);
   // console.log(searchBy);
 
-  searchFormEl.removeClass("fullscreen");
-  eventCarouselEl.removeClass("no-display");
-
+  
   if (searchType == "Artist") {
     artistSearchHandler(searchBy);
+    searchFormEl.removeClass("fullscreen");
+    eventCarouselEl.removeClass("no-display");
   } else if (searchType == "Song") {
     songSearchHandler(searchBy);
+    searchFormEl.removeClass("fullscreen");
+    eventCarouselEl.removeClass("no-display");
   } else if (searchType == "Album") {
     albumSearchHandler(searchBy);
+    searchFormEl.removeClass("fullscreen");
+    eventCarouselEl.removeClass("no-display");
   }
 };
 
